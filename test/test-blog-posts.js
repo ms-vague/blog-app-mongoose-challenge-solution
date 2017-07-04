@@ -1,5 +1,5 @@
 const chai = require('chai');
-const chatHttp = require('chai-http');
+const chaiHttp = require('chai-http');
 const faker = require('faker');
 const mongoose = require('mongoose');
 
@@ -45,13 +45,14 @@ function generateSeedData() {
 		content: fakerlorem.text()
 	}
 }
+console.log(generateSeedData());
 
 describe('blog posts API resource', function() {
 	before(function() {
 		return runServer(TEST_DATABASE_URL);
 	});
 
-	beforeEacg(function() {
+	beforeEach(function() {
 		return seedBlogData();
 	});
 
