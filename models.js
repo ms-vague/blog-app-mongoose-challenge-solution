@@ -15,6 +15,7 @@ blogPostSchema.virtual('authorName').get(function() {
   return `${this.author.firstName} ${this.author.lastName}`.trim();
 });
 
+// to make it publicly available? //
 blogPostSchema.methods.apiRepr = function() {
   return {
     id: this._id,

@@ -16,7 +16,7 @@ chai.use(chaiHttp);
 // deletes database to ensure data from one test doesn't 
 // isn't around for next tests
 function tearDownDb() {
-		return new Promise((resolve, reject) => {
+	return new Promise((resolve, reject) => {
 		consol.warn('Deleting database');
 		mongoose.connection.dropDatabase()
 			.then(result => resolve(result))
@@ -29,23 +29,18 @@ function seedBlogData() {
 	const seedData = [];
 
 	for (let i = 1; i <= 10; i++) {
-		seedData.push(generateSeedData());
+		seedData.push({
+			author: {
+				firstName: faker.name.firstName(),
+				lastName: faker.name.lastName()
+			},
+			title: faker.lorem.sentence(),
+			content: faker.lorem.text()
+			});
 	}
 	// returns a promise //
 	return BlogPost.insertMany(seedData);
 }
-
-function generateSeedData() {
-	return {
-		author: {
-			firstName: faker.name.firstName(),
-			lastName: faker.name.lastName()
-		},
-		title: faker.lorem.sentence(),
-		content: fakerlorem.text()
-	}
-}
-console.log(generateSeedData());
 
 describe('blog posts API resource', function() {
 	before(function() {
