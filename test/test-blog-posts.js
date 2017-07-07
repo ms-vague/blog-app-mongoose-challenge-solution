@@ -17,7 +17,7 @@ chai.use(chaiHttp);
 // isn't around for next tests
 function tearDownDb() {
 	return new Promise((resolve, reject) => {
-		consol.warn('Deleting database');
+		console.warn('Deleting database');
 		mongoose.connection.dropDatabase()
 			.then(result => resolve(result))
 			.catch(err => reject(err))
@@ -64,7 +64,7 @@ describe('blog posts API resource', function() {
 			let res;
 			return chai.request(app)
 			.get('/posts')
-			.then(function(_res) {
+			.then(_res => {
 				res = _res;
 				res.should.have.status(200);
 				res.body.should.have.length.of.at.least(1);
@@ -170,10 +170,10 @@ describe('blog posts API resource', function() {
 				return BlogPost.findById(res.body.id).exec();
 			})
 			.then(post => {
-				post.title.should.equal(newPost.title);
-				post.content.should.equal(newPost.content);
-				post.author.firstName.should.equal(newPost.author.firstName);
-				post.author.lastName.should.equal(newPost.author.lastName);				
+				post.title.should.equal(updateData.title);
+				post.content.should.equal(updateData.content);
+				post.author.firstName.should.equal(updateData.author.firstName);
+				post.author.lastName.should.equal(updateData.author.lastName);				
 			});
 		});
 	});
